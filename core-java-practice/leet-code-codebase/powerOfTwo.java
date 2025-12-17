@@ -4,4 +4,5 @@ class Solution {
         if(n == 0) return false;
         return n%2 == 0 ? isPowerOfTwo(n/2) : false;
     }
+    
 }
