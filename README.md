@@ -15,7 +15,7 @@
 
 🌐 Learned basic Git and GitHub commands for version control.
 
-### 📅 19 December 2025 – Work Summary
+### 📅 19 December 2025  And 20 December 2025– Work Summary
 
 🏗️ Learned about .NET architecture.
 
@@ -24,3 +24,23 @@
 📚 Learned and practiced C# datatypes.
 
 ⚡ Practiced C# operators, including arithmetic, relational, logical, unary, assignment, and ternary.
+
+### 📅 22 December 2025 – Work Summary
+
+🛠️ Learned Visual Studio Community and how to create and run C# projects in it.
+
+💻 Practiced C# conditional statements (if, else if, else).
+
+🔁 Worked with looping statements (for loop and while loop).
+
+🧮 Solved number-based programs like Prime Number, Armstrong Number, Harshad Number, and Abundant Number.
+
+🚀 Implemented FizzBuzz program using both for and while loops.
+
+🧠 Created logic-based programs such as Leap Year check, BMI calculation, and Grade calculation.
+
+🧑‍🤝‍🧑 Wrote programs to find the youngest and tallest among friends.
+
+🧾 Implemented calculator program using switch-case.
+
+📈 Practiced programs on factors, greatest factor, power of a number, multiplication tables, and odd-even numbers.
