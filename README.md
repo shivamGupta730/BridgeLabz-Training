@@ -44,3 +44,15 @@
 🧾 Implemented calculator program using switch-case.
 
 📈 Practiced programs on factors, greatest factor, power of a number, multiplication tables, and odd-even numbers.
+
+###📅 23 December 2025 – Work Summary
+
+📘 Practiced C# arrays (1D and 2D) with hands-on problems.
+
+🔢 Solved array programs for positive/negative/zero and even–odd checks.
+
+📊 Implemented multiplication tables, mean height, and sum of elements using arrays.
+
+🧠 Practiced FizzBuzz and factor-finding programs with arrays.
+
+🧱 Worked with 2D arrays and copied 2D array into 1D array using nested loops.
