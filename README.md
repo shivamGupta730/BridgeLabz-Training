@@ -45,7 +45,7 @@
 
 📈 Practiced programs on factors, greatest factor, power of a number, multiplication tables, and odd-even numbers.
 
-###📅 23 December 2025 – Work Summary
+### 📅 23 December 2025 – Work Summary
 
 📘 Practiced C# arrays (1D and 2D) with hands-on problems.
 
