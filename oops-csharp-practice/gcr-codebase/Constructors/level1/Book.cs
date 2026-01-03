@@ -14,7 +14,7 @@ public class Book
         price = 0;
     }
 
-    // Parameterized constructor
+    // Parameterized  constructor
     public Book(string title, string author, double price)
     {
         this.title = title;
