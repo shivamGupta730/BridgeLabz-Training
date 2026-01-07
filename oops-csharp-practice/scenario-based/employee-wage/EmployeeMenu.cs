@@ -14,6 +14,7 @@ namespace employee_wage
             Console.WriteLine("3. UC3 - Calculate Part Time Wage");
             Console.WriteLine("4. UC4 - Employee Type Working Hours");
             Console.WriteLine("5. UC5 - Calculate Monthly Wage");
+            Console.WriteLine("6. UC6 - Wage Till Condition");
             Console.Write("Enter your choice: ");
 
             int choice = int.Parse(Console.ReadLine());
@@ -45,8 +46,11 @@ namespace employee_wage
                     break;
 
                 case 5:
-                    int monthlyWage = utility.CalculateMonthlyWage();
-                    Console.WriteLine("Total Monthly Wage = " + monthlyWage);
+                    Console.WriteLine("Total Monthly Wage = " + utility.CalculateMonthlyWage());
+                    break;
+
+                case 6:
+                    utility.CalculateWageTillCondition();
                     break;
 
                 default:

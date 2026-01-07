@@ -9,7 +9,8 @@ namespace employee_wage
         private const int WAGE_PER_HOUR = 20;
         private const int FULL_TIME_HOURS = 8;
         private const int PART_TIME_HOURS = 4;
-        private const int WORKING_DAYS = 20;
+        private const int MAX_WORKING_DAYS = 20;
+        private const int MAX_WORKING_HOURS = 100;
 
         // UC1
         public bool CheckAttendance()
@@ -46,27 +47,51 @@ namespace employee_wage
             }
         }
 
-        // UC5: Calculate monthly wage for 20 days
+        // UC5
         public int CalculateMonthlyWage()
         {
             int totalWage = 0;
 
-            for (int day = 1; day <= WORKING_DAYS; day++)
+            for (int day = 1; day <= MAX_WORKING_DAYS; day++)
             {
-                int empType = random.Next(0, 3);   // 0,1,2
+                int empType = random.Next(0, 3);
                 int hours = GetWorkingHours(empType);
-                int dailyWage = hours * WAGE_PER_HOUR;
+                totalWage += hours * WAGE_PER_HOUR;
+            }
+            return totalWage;
+        }
 
+        // UC6: Calculate wage till max hours or max days reached
+        public void CalculateWageTillCondition()
+        {
+            int totalDays = 0;
+            int totalHours = 0;
+            int totalWage = 0;
+
+            while (totalDays < MAX_WORKING_DAYS && totalHours < MAX_WORKING_HOURS)
+            {
+                totalDays++;
+
+                int empType = random.Next(0, 3);
+                int hours = GetWorkingHours(empType);
+
+                if (totalHours + hours > MAX_WORKING_HOURS)
+                    break;
+
+                totalHours += hours;
+                int dailyWage = hours * WAGE_PER_HOUR;
                 totalWage += dailyWage;
 
                 Console.WriteLine(
-                    "Day " + day +
+                    "Day " + totalDays +
                     " | Hours: " + hours +
                     " | Wage: " + dailyWage
                 );
             }
 
-            return totalWage;
+            Console.WriteLine("Total Days  : " + totalDays);
+            Console.WriteLine("Total Hours : " + totalHours);
+            Console.WriteLine("Total Wage  : " + totalWage);
         }
     }
 }
