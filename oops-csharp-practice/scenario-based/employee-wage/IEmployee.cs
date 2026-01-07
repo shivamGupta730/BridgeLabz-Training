@@ -6,5 +6,6 @@ namespace employee_wage
         int CalculateDailyWage();         // UC2
         int CalculatePartTimeWage();      // UC3
         int GetWorkingHours(int empType); // UC4
+        int CalculateMonthlyWage();       // UC5
     }
 }
