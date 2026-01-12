@@ -7,7 +7,7 @@ This repository contains structured and well-documented implementations of **Dat
 
 ### 📅 7 January 2026
 #### 🔗 Linked Lists
-Implemented **Singly, Doubly, and Circular Linked Lists** with real-world inspired use cases.
+Implemented **Singly, Doubly, and Circular Linked Lists**.
 - Node structure, insertion, deletion, and traversal
 - Proper handling of edge cases
 - Clean and modular implementations
