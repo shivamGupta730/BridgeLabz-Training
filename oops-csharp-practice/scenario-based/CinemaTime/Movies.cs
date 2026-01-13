@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BridgeLabzTraining.scenrio_based_problem.CinemaTime
 {
@@ -10,20 +6,29 @@ namespace BridgeLabzTraining.scenrio_based_problem.CinemaTime
     {
         private string title;
         private string time;
+
         public string Title
         {
             get { return title; }
             set { title = value; }
         }
+
         public string Time
         {
-            get {  return time; }
+            get { return time; }
             set { time = value; }
         }
+
         public Movies(string title, string time)
         {
             Title = title;
             Time = time;
+        }
+
+       
+        public override string ToString()
+        {
+            return "Movie: " + Title + " | Time: " + Time;
         }
     }
 }

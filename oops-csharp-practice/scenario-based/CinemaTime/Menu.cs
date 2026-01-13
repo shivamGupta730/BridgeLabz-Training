@@ -4,12 +4,10 @@ namespace BridgeLabzTraining.scenrio_based_problem.CinemaTime
 {
     internal class Menu
     {
-        private IMovieService movieService;
+        private IMovieService movieService = new MovieUtility();
 
-        public Menu(IMovieService movieService)
-        {
-            this.movieService = movieService;
-        }
+
+
 
         public void ShowMenu()
         {

@@ -6,9 +6,8 @@ namespace BridgeLabzTraining.scenrio_based_problem.CinemaTime
     {
         static void Main(string[] args)
         {
-            IMovieService movieService = new MovieUtility();
-            Menu menu = new Menu(movieService);
-            menu.ShowMenu();
+            Menu menu = new Menu();   
+            menu.ShowMenu();         
         }
     }
 }
