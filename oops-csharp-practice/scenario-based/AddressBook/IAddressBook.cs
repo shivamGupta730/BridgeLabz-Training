@@ -1,9 +1,9 @@
 namespace AddressBookSystem
 {
-    // UC2, UC3, UC4: Address Book interface
+    // UC2–UC5: Address Book interface
     public interface IAddressBook
     {
-        void AddContact();     // UC2
+        void AddContact();     // UC2, UC5
         void EditContact();    // UC3
         void DeleteContact();  // UC4
     }

@@ -2,10 +2,10 @@ using System;
 
 namespace AddressBookSystem
 {
-    // UC1: Contact class to store person details
+    // UC1
     public class Contact
     {
-        // Private variables (Encapsulation)
+    
         private string firstName;
         private string lastName;
         private string address;
@@ -15,7 +15,7 @@ namespace AddressBookSystem
         private string phoneNumber;
         private string email;
 
-        // Properties to access private variables
+        // Public properties
         public string FirstName
         {
             get { return firstName; }
@@ -64,7 +64,7 @@ namespace AddressBookSystem
             set { email = value; }
         }
 
-        // Used to display contact details
+        // ToString method to display contact details
         public override string ToString()
         {
             return "Name: " + FirstName + " " + LastName +

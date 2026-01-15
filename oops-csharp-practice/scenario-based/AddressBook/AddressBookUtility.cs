@@ -2,15 +2,22 @@ using System;
 
 namespace AddressBookSystem
 {
-    // UC4: Utility class
+    // UC5: Utility class using array for multiple contacts
     public class AddressBookUtility : IAddressBook
     {
-        private Contact contact;
+        private Contact[] contacts = new Contact[100]; 
+        private int contactCount = 0;
 
-        // UC2
+        // UC5: Add multiple contacts
         public void AddContact()
         {
-            contact = new Contact();
+            if (contactCount >= contacts.Length)
+            {
+                Console.WriteLine("Address Book is full");
+                return;
+            }
+
+            Contact contact = new Contact();
 
             Console.Write("Enter First Name: ");
             contact.FirstName = Console.ReadLine();
@@ -63,68 +70,84 @@ namespace AddressBookSystem
                 Console.WriteLine("Invalid Email, try again");
             }
 
+            contacts[contactCount] = contact;
+            contactCount++;
+
             Console.WriteLine("\nContact Added Successfully");
         }
 
-        // UC3
+        // UC3: Edit contact by first name
         public void EditContact()
         {
-            if (contact == null)
+            if (contactCount == 0)
             {
-                Console.WriteLine("No contact available");
+                Console.WriteLine("No contacts available");
                 return;
             }
 
             Console.Write("Enter First Name to Edit: ");
             string name = Console.ReadLine();
 
-            if (name != contact.FirstName)
+            for (int i = 0; i < contactCount; i++)
             {
-                Console.WriteLine("Contact not found");
-                return;
-            }
-
-            Console.Write("Enter New City: ");
-            contact.City = Console.ReadLine();
-
-            Console.Write("Enter New State: ");
-            contact.State = Console.ReadLine();
-
-            while (true)
-            {
-                Console.Write("Enter New Phone Number (10 digits): ");
-                string phone = Console.ReadLine();
-                if (phone.Length == 10)
+                if (contacts[i].FirstName == name)
                 {
-                    contact.PhoneNumber = phone;
-                    break;
+                    Console.Write("Enter New City: ");
+                    contacts[i].City = Console.ReadLine();
+
+                    Console.Write("Enter New State: ");
+                    contacts[i].State = Console.ReadLine();
+
+                    while (true)
+                    {
+                        Console.Write("Enter New Phone Number (10 digits): ");
+                        string phone = Console.ReadLine();
+                        if (phone.Length == 10)
+                        {
+                            contacts[i].PhoneNumber = phone;
+                            break;
+                        }
+                        Console.WriteLine("Invalid Phone Number, try again");
+                    }
+
+                    Console.WriteLine("\nContact Updated Successfully");
+                    return;
                 }
-                Console.WriteLine("Invalid Phone Number, try again");
             }
 
-            Console.WriteLine("\nContact Updated Successfully");
+            Console.WriteLine("Contact not found");
         }
 
         // UC4: Delete contact by first name
         public void DeleteContact()
         {
-            if (contact == null)
+            if (contactCount == 0)
             {
-                Console.WriteLine("No contact available to delete");
+                Console.WriteLine("No contacts available");
                 return;
             }
 
             Console.Write("Enter First Name to Delete: ");
             string name = Console.ReadLine();
 
-            if (name != contact.FirstName)
+            for (int i = 0; i < contactCount; i++)
             {
-                Console.WriteLine("Contact not found");
-                return;
+                if (contacts[i].FirstName == name)
+                {
+                    for (int j = i; j < contactCount - 1; j++)
+                    {
+                        contacts[j] = contacts[j + 1];
+                    }
+
+                    contacts[contactCount - 1] = null;
+                    contactCount--;
+
+                    Console.WriteLine("Contact Deleted Successfully");
+                    return;
+                }
             }
 
-            contact = null;
-            Console.WriteLine("Contact Deleted Successfully");
+            Console.WriteLine("Contact not found");
         }
     }
 }

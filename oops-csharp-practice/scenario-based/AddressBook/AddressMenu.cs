@@ -2,7 +2,7 @@ using System;
 
 namespace AddressBookSystem
 {
-    // UC4: Menu with delete option
+    // UC5: Menu supports multiple contacts
     public class AddressMenu
     {
         private AddressBookUtility addressBookUtility = new AddressBookUtility();
@@ -23,7 +23,7 @@ namespace AddressBookSystem
 
                 if (choice == "1")
                 {
-                    addressBookUtility.AddContact();    // UC2
+                    addressBookUtility.AddContact();    // UC5
                 }
                 else if (choice == "2")
                 {
