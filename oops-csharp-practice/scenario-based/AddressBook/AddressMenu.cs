@@ -2,7 +2,7 @@ using System;
 
 namespace AddressBookSystem
 {
-    // UC9: Menu updated to view by city/state
+    // UC10: Menu updated for count by city and state
     public class AddressMenu
     {
         private AddressBookUtility addressBookUtility = new AddressBookUtility();
@@ -18,7 +18,8 @@ namespace AddressBookSystem
                 Console.WriteLine("3. Delete Contact");
                 Console.WriteLine("4. Search by City or State");
                 Console.WriteLine("5. View by City or State");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("6. Count by City and State");
+                Console.WriteLine("7. Exit");
                 Console.Write("Enter your choice: ");
 
                 string choice = Console.ReadLine();
@@ -30,10 +31,12 @@ namespace AddressBookSystem
                 else if (choice == "3")
                     addressBookUtility.DeleteContact();
                 else if (choice == "4")
-                    addressBookUtility.SearchByCityOrState(); // UC8
+                    addressBookUtility.SearchByCityOrState();
                 else if (choice == "5")
-                    addressBookUtility.ViewByCityOrState();   // UC9
+                    addressBookUtility.ViewByCityOrState();
                 else if (choice == "6")
+                    addressBookUtility.CountByCityAndState(); // UC10
+                else if (choice == "7")
                     exit = true;
                 else
                     Console.WriteLine("Invalid choice, try again");
