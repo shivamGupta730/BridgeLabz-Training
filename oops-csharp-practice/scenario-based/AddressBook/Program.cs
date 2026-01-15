@@ -2,7 +2,6 @@ using System;
 
 namespace AddressBookSystem
 {
-    // UC2: Main class
     class Program
     {
         static void Main(string[] args)
@@ -12,7 +11,7 @@ namespace AddressBookSystem
             AddressMenu menu = new AddressMenu();
             menu.ShowMenu();
 
-           
+            Console.ReadLine();
         }
     }
 }

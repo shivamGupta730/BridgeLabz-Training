@@ -2,23 +2,18 @@ using System;
 
 namespace AddressBookSystem
 {
-    // UC2: Logic class to add contact
+    // UC3: Utility class
     public class AddressBookUtility : IAddressBook
     {
         private Contact contact;
 
+        // UC2: Add contact
         public void AddContact()
         {
             contact = new Contact();
 
             Console.Write("Enter First Name: ");
-            string firstName = Console.ReadLine();
-            if (firstName == "")
-            {
-                Console.WriteLine("First Name cannot be empty");
-                return;
-            }
-            contact.FirstName = firstName;
+            contact.FirstName = Console.ReadLine();
 
             Console.Write("Enter Last Name: ");
             contact.LastName = Console.ReadLine();
@@ -32,34 +27,90 @@ namespace AddressBookSystem
             Console.Write("Enter State: ");
             contact.State = Console.ReadLine();
 
-            Console.Write("Enter Zip: ");
-            string zip = Console.ReadLine();
-            if (zip.Length != 6)
+            // Zip validation (repeat until correct)
+            while (true)
             {
-                Console.WriteLine("Zip must be 6 digits");
+                Console.Write("Enter Zip (6 digits): ");
+                string zip = Console.ReadLine();
+
+                if (zip.Length == 6)
+                {
+                    contact.Zip = zip;
+                    break;
+                }
+                Console.WriteLine("Invalid Zip, try again");
+            }
+
+            // Phone validation (repeat until correct)
+            while (true)
+            {
+                Console.Write("Enter Phone Number (10 digits): ");
+                string phone = Console.ReadLine();
+
+                if (phone.Length == 10)
+                {
+                    contact.PhoneNumber = phone;
+                    break;
+                }
+                Console.WriteLine("Invalid Phone Number, try again");
+            }
+
+            // Email validation
+            while (true)
+            {
+                Console.Write("Enter Email: ");
+                string email = Console.ReadLine();
+
+                if (email.Contains("@"))
+                {
+                    contact.Email = email;
+                    break;
+                }
+                Console.WriteLine("Invalid Email, try again");
+            }
+
+            Console.WriteLine("\nContact Added Successfully");
+        }
+
+        // UC3: Edit contact
+        public void EditContact()
+        {
+            if (contact == null)
+            {
+                Console.WriteLine("No contact available");
                 return;
             }
-            contact.Zip = zip;
 
-            Console.Write("Enter Phone Number: ");
-            string phone = Console.ReadLine();
-            if (phone.Length != 10)
+            Console.Write("Enter First Name to Edit: ");
+            string name = Console.ReadLine();
+
+            if (name != contact.FirstName)
             {
-                Console.WriteLine("Phone Number must be 10 digits");
+                Console.WriteLine("Contact not found");
                 return;
             }
-            contact.PhoneNumber = phone;
 
-            Console.Write("Enter Email: ");
-            string email = Console.ReadLine();
-            if (!email.Contains("@"))
+            Console.Write("Enter New City: ");
+            contact.City = Console.ReadLine();
+
+            Console.Write("Enter New State: ");
+            contact.State = Console.ReadLine();
+
+            // Phone validation during edit
+            while (true)
             {
-                Console.WriteLine("Invalid Email");
-                return;
-            }
-            contact.Email = email;
+                Console.Write("Enter New Phone Number (10 digits): ");
+                string phone = Console.ReadLine();
 
-            Console.WriteLine("\nContact Added Successfully\n");
+                if (phone.Length == 10)
+                {
+                    contact.PhoneNumber = phone;
+                    break;
+                }
+                Console.WriteLine("Invalid Phone Number, try again");
+            }
+
+            Console.WriteLine("\nContact Updated Successfully");
             Console.WriteLine(contact.ToString());
         }
     }
