@@ -11,7 +11,7 @@ namespace AddressBookSystem
             AddressMenu menu = new AddressMenu();
             menu.ShowMenu();
 
-            Console.ReadLine();
+            
         }
     }
 }
