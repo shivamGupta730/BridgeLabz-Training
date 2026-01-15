@@ -54,6 +54,32 @@ Implemented and analyzed multiple sorting algorithms for different datasets and 
 - Counting Sort  
 
 
+### 📅 12 January 2025
+#### String utilities
+StringBuilder
+StringBuffer
+Searching algorithms:
+Linear Search
+Binary Search
+
+### 📅 13 January 2025
+#### Runtime Analysis
+Big-O Notation
+Time Complexity Analysis
+Space Complexity Analysis
+Best, Worst, and Average Case Complexity
+Practical performance optimization guidelines in C#
+
+#### 📅 13 January 2025
+### 📒 Address Book System
+ Scenario-Based Application: Developed a console-based Address Book System using C# and core OOP concepts.
+ 
+ Menu-Driven Features: Enabled contact creation, update, deletion, search, count, and sorting through a structured menu flow.
+ 
+ Clean Use-Case Design: Implemented functionality UC1–UC11 using array-based storage with proper naming and code hygiene.
+
+
+
 
 
 
