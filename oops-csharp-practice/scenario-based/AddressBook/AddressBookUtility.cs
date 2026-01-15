@@ -2,13 +2,13 @@ using System;
 
 namespace AddressBookSystem
 {
-    // UC8: Search contact by city or state
+    // UC9: View persons by city or state
     public class AddressBookUtility : IAddressBook
     {
         private Contact[] contacts = new Contact[50];
         private int contactCount = 0;
 
-        // UC2 + UC5 + UC6
+        // ---- UC2 + UC5 + UC6 ----
         public void AddContact()
         {
             if (contactCount >= contacts.Length)
@@ -85,7 +85,7 @@ namespace AddressBookSystem
             Console.WriteLine("Contact Added Successfully");
         }
 
-        // UC3
+        // ---- UC3 ----
         public void EditContact()
         {
             if (contactCount == 0)
@@ -127,7 +127,7 @@ namespace AddressBookSystem
             Console.WriteLine("Contact not found");
         }
 
-        // UC4
+        // ---- UC4 ----
         public void DeleteContact()
         {
             if (contactCount == 0)
@@ -158,24 +158,17 @@ namespace AddressBookSystem
             Console.WriteLine("Contact not found");
         }
 
-        // UC8: Search by City or State
+        // ---- UC8 ----
         public void SearchByCityOrState()
         {
-            if (contactCount == 0)
-            {
-                Console.WriteLine("No contacts available");
-                return;
-            }
-
-            Console.Write("Enter City or State to Search: ");
-            string searchValue = Console.ReadLine();
+            Console.Write("Enter City or State: ");
+            string value = Console.ReadLine();
 
             bool found = false;
 
             for (int i = 0; i < contactCount; i++)
             {
-                if (contacts[i].City == searchValue ||
-                    contacts[i].State == searchValue)
+                if (contacts[i].City == value || contacts[i].State == value)
                 {
                     Console.WriteLine("\n" + contacts[i].ToString());
                     found = true;
@@ -184,8 +177,34 @@ namespace AddressBookSystem
 
             if (!found)
             {
-                Console.WriteLine("No contact found for given city/state");
+                Console.WriteLine("No contact found");
             }
+        }
+
+        // ---- UC9 ----
+        public void ViewByCityOrState()
+        {
+            if (contactCount == 0)
+            {
+                Console.WriteLine("No contacts available");
+                return;
+            }
+
+            Console.Write("Enter City or State: ");
+            string value = Console.ReadLine();
+
+            int count = 0;
+
+            for (int i = 0; i < contactCount; i++)
+            {
+                if (contacts[i].City == value || contacts[i].State == value)
+                {
+                    Console.WriteLine("\n" + contacts[i].ToString());
+                    count++;
+                }
+            }
+
+            Console.WriteLine("\nTotal Contacts Found: " + count);
         }
     }
 }
