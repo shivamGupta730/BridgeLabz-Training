@@ -2,13 +2,13 @@ using System;
 
 namespace AddressBookSystem
 {
-    // UC5: Utility class using array for multiple contacts
+    // UC6: Prevent duplicate contacts using name
     public class AddressBookUtility : IAddressBook
     {
-        private Contact[] contacts = new Contact[100]; 
+        private Contact[] contacts = new Contact[50];
         private int contactCount = 0;
 
-        // UC5: Add multiple contacts
+        // UC2 + UC5 + UC6
         public void AddContact()
         {
             if (contactCount >= contacts.Length)
@@ -17,10 +17,21 @@ namespace AddressBookSystem
                 return;
             }
 
-            Contact contact = new Contact();
-
             Console.Write("Enter First Name: ");
-            contact.FirstName = Console.ReadLine();
+            string firstName = Console.ReadLine();
+
+            // UC6: Duplicate check by first name
+            for (int i = 0; i < contactCount; i++)
+            {
+                if (contacts[i].FirstName == firstName)
+                {
+                    Console.WriteLine("Contact with same name already exists");
+                    return;
+                }
+            }
+
+            Contact contact = new Contact();
+            contact.FirstName = firstName;
 
             Console.Write("Enter Last Name: ");
             contact.LastName = Console.ReadLine();
@@ -73,10 +84,10 @@ namespace AddressBookSystem
             contacts[contactCount] = contact;
             contactCount++;
 
-            Console.WriteLine("\nContact Added Successfully");
+            Console.WriteLine("Contact Added Successfully");
         }
 
-        // UC3: Edit contact by first name
+        // UC3
         public void EditContact()
         {
             if (contactCount == 0)
@@ -110,7 +121,7 @@ namespace AddressBookSystem
                         Console.WriteLine("Invalid Phone Number, try again");
                     }
 
-                    Console.WriteLine("\nContact Updated Successfully");
+                    Console.WriteLine("Contact Updated Successfully");
                     return;
                 }
             }
@@ -118,7 +129,7 @@ namespace AddressBookSystem
             Console.WriteLine("Contact not found");
         }
 
-        // UC4: Delete contact by first name
+        // UC4
         public void DeleteContact()
         {
             if (contactCount == 0)
