@@ -2,10 +2,9 @@ using System;
 
 namespace AddressBookSystem
 {
-    // UC1
+    // UC1, UC7: Contact class with Equals override
     public class Contact
     {
-    
         private string firstName;
         private string lastName;
         private string address;
@@ -15,7 +14,6 @@ namespace AddressBookSystem
         private string phoneNumber;
         private string email;
 
-        // Public properties
         public string FirstName
         {
             get { return firstName; }
@@ -64,16 +62,5 @@ namespace AddressBookSystem
             set { email = value; }
         }
 
-        // ToString method to display contact details
-        public override string ToString()
-        {
-            return "Name: " + FirstName + " " + LastName +
-                   "\nAddress: " + Address +
-                   "\nCity: " + City +
-                   "\nState: " + State +
-                   "\nZip: " + Zip +
-                   "\nPhone: " + PhoneNumber +
-                   "\nEmail: " + Email;
-        }
-    }
-}
+        // UC7: Check duplicate contact using first and last name
+        public override bool
