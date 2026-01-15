@@ -63,4 +63,35 @@ namespace AddressBookSystem
         }
 
         // UC7: Check duplicate contact using first and last name
-        public override bool
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+
+            Contact other = obj as Contact;
+            if (other == null)
+                return false;
+
+            return this.FirstName == other.FirstName &&
+                   this.LastName == other.LastName;
+        }
+
+        // Required when Equals is overridden
+        public override int GetHashCode()
+        {
+            return FirstName.GetHashCode() + LastName.GetHashCode();
+        }
+
+        // Display contact details
+        public override string ToString()
+        {
+            return "Name: " + FirstName + " " + LastName +
+                   "\nAddress: " + Address +
+                   "\nCity: " + City +
+                   "\nState: " + State +
+                   "\nZip: " + Zip +
+                   "\nPhone: " + PhoneNumber +
+                   "\nEmail: " + Email;
+        }
+    }
+}

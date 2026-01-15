@@ -2,7 +2,7 @@ using System;
 
 namespace AddressBookSystem
 {
-    // UC6: Prevent duplicate contacts using name
+    // UC8: Search contact by city or state
     public class AddressBookUtility : IAddressBook
     {
         private Contact[] contacts = new Contact[50];
@@ -20,7 +20,6 @@ namespace AddressBookSystem
             Console.Write("Enter First Name: ");
             string firstName = Console.ReadLine();
 
-            // UC6: Duplicate check by first name
             for (int i = 0; i < contactCount; i++)
             {
                 if (contacts[i].FirstName == firstName)
@@ -83,7 +82,6 @@ namespace AddressBookSystem
 
             contacts[contactCount] = contact;
             contactCount++;
-
             Console.WriteLine("Contact Added Successfully");
         }
 
@@ -152,13 +150,42 @@ namespace AddressBookSystem
 
                     contacts[contactCount - 1] = null;
                     contactCount--;
-
                     Console.WriteLine("Contact Deleted Successfully");
                     return;
                 }
             }
 
             Console.WriteLine("Contact not found");
+        }
+
+        // UC8: Search by City or State
+        public void SearchByCityOrState()
+        {
+            if (contactCount == 0)
+            {
+                Console.WriteLine("No contacts available");
+                return;
+            }
+
+            Console.Write("Enter City or State to Search: ");
+            string searchValue = Console.ReadLine();
+
+            bool found = false;
+
+            for (int i = 0; i < contactCount; i++)
+            {
+                if (contacts[i].City == searchValue ||
+                    contacts[i].State == searchValue)
+                {
+                    Console.WriteLine("\n" + contacts[i].ToString());
+                    found = true;
+                }
+            }
+
+            if (!found)
+            {
+                Console.WriteLine("No contact found for given city/state");
+            }
         }
     }
 }
