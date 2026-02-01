@@ -1,0 +1,9 @@
+
+tD:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\obj\Debug\net10.0\AddressBook.AssemblyInfo.csutf-8î
+àD:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\obj\Debug\net10.0\.NETCoreApp,Version=v10.0.AssemblyAttributes.csutf-8Å
+vD:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\obj\Debug\net10.0\AddressBook.GlobalUsings.g.csutf-8Z
+QD:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\Program.csutf-8_
+VD:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\IAddressBook.csutf-8Z
+QD:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\Contact.csutf-8^
+UD:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\AddressMenu.csutf-8e
+\D:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\AddressBookUtility.csutf-8

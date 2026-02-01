@@ -1,14 +1,11 @@
-namespace AddressBookSystem
+namespace AddressBook
 {
-    // UC2–UC11: Address Book interface
-    public interface IAddressBook
+    // UC2–UC5: Interface for Address Book operations
+    interface IAddressBook
     {
-        void AddContact();
-        void EditContact();
-        void DeleteContact();
-        void SearchByCityOrState();   
-        void ViewByCityOrState();     
-        void CountByCityAndState();   
-        void SortByName();            // UC11
+        void AddContact(Contact contact);     // UC2
+        void EditContact(string name);        // UC3
+        void DeleteContact(string name);      // UC4
+        void DisplayContacts();               // UC5
     }
 }

@@ -1,17 +1,2 @@
-using System;
-
-namespace AddressBookSystem
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Welcome to Address Book Program\n");
-
-            AddressMenu menu = new AddressMenu();
-            menu.ShowMenu();
-
-            Console.ReadLine();
-        }
-    }
-}
+﻿// See https://aka.ms/new-console-template for more information
+Console.WriteLine("Hello, World!");
