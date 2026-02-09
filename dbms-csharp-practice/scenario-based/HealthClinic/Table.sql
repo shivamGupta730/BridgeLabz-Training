@@ -1,0 +1,377 @@
+-- CREATE DATABASE HealthClinic;
+-- GO
+
+-- USE HealthClinic;
+-- GO
+
+-- CREATE TABLE Specialty (
+--     specialty_id INT IDENTITY(1,1) PRIMARY KEY,
+--     specialty_name VARCHAR(100) NOT NULL
+-- );
+-- GO
+
+-- CREATE TABLE Patient (
+--     patient_id INT IDENTITY(1,1) PRIMARY KEY,
+--     name VARCHAR(100) NOT NULL,
+--     dob DATE,
+--     phone VARCHAR(15) UNIQUE,
+--     email VARCHAR(100) UNIQUE,
+--     address VARCHAR(200),
+--     blood_group VARCHAR(10),
+--     created_at DATETIME DEFAULT GETDATE()
+-- );
+-- GO
+
+-- CREATE TABLE Doctor (
+--     doctor_id INT IDENTITY(1,1) PRIMARY KEY,
+--     name VARCHAR(100) NOT NULL,
+--     contact VARCHAR(15),
+--     consultation_fee DECIMAL(10,2),
+--     specialty_id INT,
+--     is_active BIT DEFAULT 1,
+--     CONSTRAINT fk_doctor_specialty
+--     FOREIGN KEY (specialty_id)
+--     REFERENCES Specialty(specialty_id)
+-- );
+-- GO
+
+-- CREATE TABLE Appointment (
+--     appointment_id INT IDENTITY(1,1) PRIMARY KEY,
+--     patient_id INT,
+--     doctor_id INT,
+--     appointment_date DATE,
+--     appointment_time TIME,
+--     status VARCHAR(20),
+--     CONSTRAINT fk_appointment_patient
+--     FOREIGN KEY (patient_id)
+--     REFERENCES Patient(patient_id),
+--     CONSTRAINT fk_appointment_doctor
+--     FOREIGN KEY (doctor_id)
+--     REFERENCES Doctor(doctor_id)
+-- );
+-- GO
+
+-- CREATE TABLE Visit (
+--     visit_id INT IDENTITY(1,1) PRIMARY KEY,
+--     appointment_id INT,
+--     visit_date DATE,
+--     diagnosis VARCHAR(200),
+--     notes VARCHAR(300),
+--     CONSTRAINT fk_visit_appointment
+--     FOREIGN KEY (appointment_id)
+--     REFERENCES Appointment(appointment_id)
+-- );
+-- GO
+
+-- CREATE TABLE Prescription (
+--     prescription_id INT IDENTITY(1,1) PRIMARY KEY,
+--     visit_id INT,
+--     medicine_name VARCHAR(100),
+--     dosage VARCHAR(50),
+--     duration VARCHAR(50),
+--     CONSTRAINT fk_prescription_visit
+--     FOREIGN KEY (visit_id)
+--     REFERENCES Visit(visit_id)
+--     ON DELETE CASCADE
+-- );
+-- GO
+
+-- CREATE TABLE Bill (
+--     bill_id INT IDENTITY(1,1) PRIMARY KEY,
+--     visit_id INT,
+--     total_amount DECIMAL(10,2),
+--     payment_status VARCHAR(20),
+--     bill_date DATE,
+--     CONSTRAINT fk_bill_visit
+--     FOREIGN KEY (visit_id)
+--     REFERENCES Visit(visit_id)
+-- );
+-- GO
+
+-- CREATE TABLE Payment (
+--     payment_id INT IDENTITY(1,1) PRIMARY KEY,
+--     bill_id INT,
+--     payment_mode VARCHAR(50),
+--     payment_date DATE,
+--     amount DECIMAL(10,2),
+--     CONSTRAINT fk_payment_bill
+--     FOREIGN KEY (bill_id)
+--     REFERENCES Bill(bill_id)
+--     ON DELETE CASCADE
+-- );
+-- GO
+
+-- CREATE TABLE Audit_Log (
+--     log_id INT IDENTITY(1,1) PRIMARY KEY,
+--     table_name VARCHAR(50),
+--     action VARCHAR(20),
+--     record_id INT,
+--     user_name VARCHAR(50),
+--     action_time DATETIME DEFAULT GETDATE()
+-- );
+-- GO
+-- CREATE PROCEDURE sp_AddPatient
+--     @name VARCHAR(100),
+--     @dob DATE,
+--     @phone VARCHAR(15),
+--     @email VARCHAR(100),
+--     @address VARCHAR(200),
+--     @blood_group VARCHAR(10)
+-- AS
+-- BEGIN
+--     INSERT INTO Patient(name, dob, phone, email, address, blood_group)
+--     VALUES (@name, @dob, @phone, @email, @address, @blood_group);
+-- END;
+-- GO
+-- CREATE PROCEDURE sp_UpdatePatient
+--     @patient_id INT,
+--     @address VARCHAR(200),
+--     @phone VARCHAR(15)
+-- AS
+-- BEGIN
+--     UPDATE Patient
+--     SET address = @address, phone = @phone
+--     WHERE patient_id = @patient_id;
+-- END;
+-- GO
+-- CREATE PROCEDURE sp_GetPatient
+--     @patient_id INT
+-- AS
+-- BEGIN
+--     SELECT * FROM Patient WHERE patient_id = @patient_id;
+-- END;
+-- GO
+-- CREATE PROCEDURE sp_DeletePatient
+--     @patient_id INT
+-- AS
+-- BEGIN
+--     UPDATE Patient
+--     SET phone = NULL, email = NULL
+--     WHERE patient_id = @patient_id;
+-- END;
+-- GO
+-- CREATE PROCEDURE sp_AddAppointment
+--     @patient_id INT,
+--     @doctor_id INT,
+--     @date DATE,
+--     @time TIME
+-- AS
+-- BEGIN
+--     INSERT INTO Appointment(patient_id, doctor_id, appointment_date, appointment_time, status)
+--     VALUES (@patient_id, @doctor_id, @date, @time, 'SCHEDULED');
+-- END;
+-- GO
+-- CREATE PROCEDURE sp_SearchPatient_Full
+--     @search VARCHAR(100)
+-- AS
+-- BEGIN
+--     SELECT *
+--     FROM Patient
+--     WHERE name LIKE '%' + @search + '%'
+--        OR phone = @search
+--        OR CAST(patient_id AS VARCHAR) = @search;
+-- END;
+-- GO
+
+-- CREATE PROCEDURE sp_ViewPatientVisitHistory
+--     @patient_id INT
+-- AS
+-- BEGIN
+--     SELECT 
+--         d.name AS doctor_name,
+--         v.visit_date,
+--         v.diagnosis
+--     FROM Appointment a
+--     JOIN Visit v ON a.appointment_id = v.appointment_id
+--     JOIN Doctor d ON a.doctor_id = d.doctor_id
+--     WHERE a.patient_id = @patient_id
+--     ORDER BY v.visit_date;
+-- END;
+-- GO
+
+-- CREATE PROCEDURE sp_UpdateDoctorSpecialty
+--     @doctor_id INT,
+--     @specialty_id INT
+-- AS
+-- BEGIN
+--     BEGIN TRAN;
+--     UPDATE Doctor
+--     SET specialty_id = @specialty_id
+--     WHERE doctor_id = @doctor_id;
+--     COMMIT;
+-- END;
+-- GO
+-- CREATE PROCEDURE sp_ViewDoctorsBySpecialty
+--     @specialty_name VARCHAR(100)
+-- AS
+-- BEGIN
+--     SELECT d.name, d.contact, d.consultation_fee
+--     FROM Doctor d
+--     JOIN Specialty s ON d.specialty_id = s.specialty_id
+--     WHERE s.specialty_name = @specialty_name
+--       AND d.is_active = 1;
+-- END;
+-- GO
+
+
+-- CREATE PROCEDURE sp_DeactivateDoctor
+--     @doctor_id INT
+-- AS
+-- BEGIN
+--     IF EXISTS (
+--         SELECT 1 FROM Appointment 
+--         WHERE doctor_id = @doctor_id AND status = 'SCHEDULED'
+--     )
+--         RETURN;
+
+--     UPDATE Doctor
+--     SET is_active = 0
+--     WHERE doctor_id = @doctor_id;
+-- END;
+-- GO
+
+-- CREATE PROCEDURE sp_CheckDoctorAvailability
+--     @doctor_id INT,
+--     @date DATE
+-- AS
+-- BEGIN
+--     SELECT appointment_time, COUNT(*) AS bookings
+--     FROM Appointment
+--     WHERE doctor_id = @doctor_id
+--       AND appointment_date = @date
+--       AND status = 'SCHEDULED'
+--     GROUP BY appointment_time;
+-- END;
+-- GO
+
+-- CREATE PROCEDURE sp_CancelAppointment
+--     @appointment_id INT
+-- AS
+-- BEGIN
+--     BEGIN TRAN;
+--     UPDATE Appointment
+--     SET status = 'CANCELLED'
+--     WHERE appointment_id = @appointment_id;
+--     COMMIT;
+-- END;
+-- GO
+
+-- CREATE PROCEDURE sp_RescheduleAppointment
+--     @appointment_id INT,
+--     @new_date DATE,
+--     @new_time TIME
+-- AS
+-- BEGIN
+--     BEGIN TRAN;
+
+--     IF EXISTS (
+--         SELECT 1 FROM Appointment
+--         WHERE appointment_date = @new_date
+--           AND appointment_time = @new_time
+--           AND status = 'SCHEDULED'
+--     )
+--     BEGIN
+--         ROLLBACK;
+--         RETURN;
+--     END
+
+--     UPDATE Appointment
+--     SET appointment_date = @new_date,
+--         appointment_time = @new_time
+--     WHERE appointment_id = @appointment_id;
+
+--     COMMIT;
+-- END;
+-- GO
+
+-- CREATE PROCEDURE sp_ViewDailySchedule
+--     @date DATE
+-- AS
+-- BEGIN
+--     SELECT 
+--         p.name AS patient_name,
+--         d.name AS doctor_name,
+--         a.appointment_time
+--     FROM Appointment a
+--     JOIN Patient p ON a.patient_id = p.patient_id
+--     JOIN Doctor d ON a.doctor_id = d.doctor_id
+--     WHERE a.appointment_date = @date
+--     ORDER BY a.appointment_time;
+-- END;
+-- GO
+
+-- CREATE PROCEDURE sp_RecordVisit
+--     @appointment_id INT,
+--     @diagnosis VARCHAR(200),
+--     @notes VARCHAR(300)
+-- AS
+-- BEGIN
+--     BEGIN TRAN;
+
+--     INSERT INTO Visit(appointment_id, visit_date, diagnosis, notes)
+--     VALUES(@appointment_id, GETDATE(), @diagnosis, @notes);
+
+--     UPDATE Appointment
+--     SET status = 'COMPLETED'
+--     WHERE appointment_id = @appointment_id;
+
+--     COMMIT;
+-- END;
+-- GO
+
+-- CREATE PROCEDURE sp_ViewMedicalHistory
+--     @patient_id INT
+-- AS
+-- BEGIN
+--     SELECT 
+--         v.visit_date,
+--         v.diagnosis,
+--         pr.medicine_name,
+--         pr.dosage,
+--         pr.duration
+--     FROM Appointment a
+--     JOIN Visit v ON a.appointment_id = v.appointment_id
+--     JOIN Prescription pr ON v.visit_id = pr.visit_id
+--     WHERE a.patient_id = @patient_id
+--     ORDER BY v.visit_date DESC;
+-- END;
+-- GO
+
+-- CREATE PROCEDURE sp_GenerateBill
+--     @visit_id INT,
+--     @amount DECIMAL(10,2)
+-- AS
+-- BEGIN
+--     INSERT INTO Bill
+--     VALUES(@visit_id, @amount, 'UNPAID', GETDATE());
+-- END;
+-- GO
+
+-- CREATE PROCEDURE sp_ViewOutstandingBills
+-- AS
+-- BEGIN
+--     SELECT 
+--         p.name,
+--         COUNT(b.bill_id) AS bills,
+--         SUM(b.total_amount) AS total_due
+--     FROM Bill b
+--     JOIN Visit v ON b.visit_id = v.visit_id
+--     JOIN Appointment a ON v.appointment_id = a.appointment_id
+--     JOIN Patient p ON a.patient_id = p.patient_id
+--     WHERE b.payment_status = 'UNPAID'
+--     GROUP BY p.name;
+-- END;
+-- GO
+
+
+-- CREATE TRIGGER trg_Audit_Appointment
+-- ON Appointment
+-- AFTER INSERT, UPDATE, DELETE
+-- AS
+-- BEGIN
+--     INSERT INTO Audit_Log(table_name, action, record_id, user_name)
+--     SELECT 'Appointment','CHANGE',appointment_id,SYSTEM_USER
+--     FROM inserted;
+-- END;
+-- GO
+
