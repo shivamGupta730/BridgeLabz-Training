@@ -1,0 +1,5 @@
+D:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\obj\Debug\net8.0\AddressBook.GeneratedMSBuildEditorConfig.editorconfig
+D:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\obj\Debug\net8.0\AddressBook.AssemblyInfoInputs.cache
+D:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\obj\Debug\net8.0\AddressBook.AssemblyInfo.cs
+D:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\obj\Debug\net8.0\AddressBook.csproj.CoreCompileInputs.cache
+D:\BridgeLabz-Training\oops-csharp-practice\scenario-based\AddressBook\obj\Debug\net8.0\AddressBook.sourcelink.json
